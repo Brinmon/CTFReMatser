@@ -60,9 +60,22 @@ TestXorCrypter: TestXorCrypter.o XorCrypter.o StrToEncode.o
 
 xorcrypter : TestXorCrypter
 
+#BaseEncode 编码篇
+BASEENCODEWORK_DIR = BaseEncode
 
+base64.o:
+	@mkdir -p $(OBJ_DIR)/$(BASEENCODEWORK_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDE_DIR)/ -c $(BASEENCODEWORK_DIR)/base64.c -o $(OBJ_DIR)/$(BASEENCODEWORK_DIR)/base64.o
 
+TestBase64Encode.o:
+	@mkdir -p $(OBJ_DIR)/$(BASEENCODEWORK_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDE_DIR)/ -c $(UNIT_TEST_DIR)/$(BASEENCODEWORK_DIR)/TestBase64Encode.c -o $(OBJ_DIR)/$(BASEENCODEWORK_DIR)/TestBase64Encode.o
 
+TestBase64Encode: TestBase64Encode.o base64.o
+	@mkdir -p $(BIN_DIR)/$(BASEENCODEWORK_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDE_DIR)/ -o $(BIN_DIR)/$(BASEENCODEWORK_DIR)/TestBase64Encode $(OBJ_DIR)/$(BASEENCODEWORK_DIR)/TestBase64Encode.o $(OBJ_DIR)/$(BASEENCODEWORK_DIR)/base64.o
+
+baseencode : TestBase64Encode
 
 # 目标：清理编译生成的文件
 clean:
