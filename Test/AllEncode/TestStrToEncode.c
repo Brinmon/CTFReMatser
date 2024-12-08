@@ -3,42 +3,59 @@
 #include <stdio.h>
 
 int main() {
-    const char* input = "Hello, World!";
+    const char* inputString = "Hello, World!";
 
-    // 测试 ConvertStringToHex
-    char* hex = ConvertStringToHex(input,1);
-    printf("Hex: %s\n", hex);
-    free(hex);
-    // 测试 ConvertStringToHex
-    char* hex1 = ConvertStringToHex(input,0);
-    printf("Hex: %s\n", hex1);
-    free(hex1);
+    // 测试 ConvertStringToHex 函数
+    char* hexWithSpacesAndCommas = ConvertStringToHex(inputString, 1);
+    printf("Hex with spaces and commas: %s\n", hexWithSpacesAndCommas);
+    free(hexWithSpacesAndCommas);
 
-    // 测试 ConvertStringToDec
-    char* dec = ConvertStringToDec(input,1);
-    printf("Dec: %s\n", dec);
-    free(dec);
-    // 测试 ConvertStringToDec
-    char* dec1 = ConvertStringToDec(input,0);
-    printf("Dec: %s\n", dec1);
-    free(dec1);
+    char* hexWithoutSpacesOrCommas = ConvertStringToHex(inputString, 0);
+    printf("Hex without spaces or commas: %s\n", hexWithoutSpacesOrCommas);
+    free(hexWithoutSpacesOrCommas);
 
-    // 测试 ConvertStringToBin
-    char* bin = ConvertStringToBin(input,1);
-    printf("Bin: %s\n", bin);
-    free(bin);
-    // 测试 ConvertStringToBin
-    char* bin1 = ConvertStringToBin(input,0);
-    printf("Bin: %s\n", bin1);
-    free(bin1);
+    char* hexWithCommasOnly = ConvertStringToHex(inputString, 2);
+    printf("Hex with commas only: %s\n", hexWithCommasOnly);
+    free(hexWithCommasOnly);
 
-    char* hexEscape = ConvertStringToHexEscape(input);
-    printf("Hex escape format: %s\n", hexEscape);
-    free(hexEscape); // 释放分配的内存
+    // 测试 ConvertStringToDec 函数
+    char* decWithSpacesAndCommas = ConvertStringToDec(inputString, 1);
+    printf("Decimal with spaces and commas: %s\n", decWithSpacesAndCommas);
+    free(decWithSpacesAndCommas);
 
-    char* urlEncoded = ConvertStringToUrlEncode(input);
-    printf("URL Encoded format: %s\n", urlEncoded);
-    free(urlEncoded); // 释放分配的内存
+    char* decWithoutSpacesOrCommas = ConvertStringToDec(inputString, 0);
+    printf("Decimal without spaces or commas: %s\n", decWithoutSpacesOrCommas);
+    free(decWithoutSpacesOrCommas);
+
+    char* decWithCommasOnly = ConvertStringToDec(inputString, 2);
+    printf("Decimal with commas only: %s\n", decWithCommasOnly);
+    free(decWithCommasOnly);
+
+    // 测试 ConvertStringToBin 函数
+    char* binWithSpacesAndCommas = ConvertStringToBin(inputString, 1);
+    printf("Binary with spaces and commas: %s\n", binWithSpacesAndCommas);
+    free(binWithSpacesAndCommas);
+
+    char* binWithoutSpacesOrCommas = ConvertStringToBin(inputString, 0);
+    printf("Binary without spaces or commas: %s\n", binWithoutSpacesOrCommas);
+    free(binWithoutSpacesOrCommas);
+
+    char* binWithCommasOnly = ConvertStringToBin(inputString, 2);
+    printf("Binary with commas only: %s\n", binWithCommasOnly);
+    free(binWithCommasOnly);
+
+    // 测试 ConvertStringToHexEscape 函数
+    char* hexEscapeFormat = ConvertStringToHexEscape(inputString);
+    printf("Hex escape format: %s\n", hexEscapeFormat);
+    free(hexEscapeFormat); // 释放分配的内存
+
+    // 测试 ConvertStringToUrlEncode 函数
+    char* urlEncodedFormat = ConvertStringToUrlEncode(inputString);
+    printf("URL Encoded format: %s\n", urlEncodedFormat);
+    free(urlEncodedFormat); // 释放分配的内存
 
     return 0;
 }
+
+
+

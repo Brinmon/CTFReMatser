@@ -4,21 +4,30 @@
 #include <ctype.h>
 
 // 将字符串转换为十六进制格式，并返回转换后的字符串
-// 如果添加Space为1，则十六进制数之间用空格隔开，否则不隔开
+// 如果添加Space为1，则十六进制数之间用空格隔开；如果为2，则使用逗号隔开；否则不隔开
 char* ConvertStringToHex(const char* input, int addSpace) {
     int len = strlen(input);
-    // 每个字符占 2 个字符，考虑是否需要添加空格
-    int resultSize = len * 2 + (addSpace ? len - 1 : 0) + 1; 
+    if (len == 0) {
+        fprintf(stderr, "Input string is empty in ConvertStringToHex.\n");
+        return NULL;
+    }
+
+    // 每个字符占 2 个字符，考虑是否需要添加分隔符
+    int resultSize = len * 2 + (addSpace > 0 ? len - 1 : 0) + 1; 
     char* result = (char*)malloc(resultSize * sizeof(char));
-    
+    if (!result) {
+        fprintf(stderr, "Memory allocation failed in ConvertStringToHex.\n");
+        return NULL;
+    }
+
     int pos = 0;
     for (int i = 0; i < len; i++) {
         // 将字符转换为十六进制并格式化为 2 位
         pos += sprintf(result + pos, "%02X", (unsigned char)input[i]);
 
-        // 如果需要添加空格且不是最后一个字符，就添加空格
-        if (addSpace && i < len - 1) {
-            result[pos++] = ' ';
+        // 如果需要添加分隔符且不是最后一个字符，就添加分隔符
+        if (addSpace > 0 && i < len - 1) {
+            result[pos++] = (addSpace == 1) ? ' ' : ',';
         }
     }
 
@@ -27,21 +36,30 @@ char* ConvertStringToHex(const char* input, int addSpace) {
 }
 
 // 将字符串转换为十进制格式，并返回转换后的字符串
-// 如果添加Space为1，则十进制数之间用空格隔开，否则不隔开
+// 如果添加Space为1，则十进制数之间用空格隔开；如果为2，则使用逗号隔开；否则不隔开
 char* ConvertStringToDec(const char* input, int addSpace) {
     int len = strlen(input);
-    // 每个字符占 3 位，考虑是否需要添加空格
-    int resultSize = len * 3 + (addSpace ? len - 1 : 0) + 1; 
+    if (len == 0) {
+        fprintf(stderr, "Input string is empty in ConvertStringToDec.\n");
+        return NULL;
+    }
+
+    // 每个字符占 3 位，考虑是否需要添加分隔符
+    int resultSize = len * 3 + (addSpace > 0 ? len - 1 : 0) + 1; 
     char* result = (char*)malloc(resultSize * sizeof(char));
-    
+    if (!result) {
+        fprintf(stderr, "Memory allocation failed in ConvertStringToDec.\n");
+        return NULL;
+    }
+
     int pos = 0;
     for (int i = 0; i < len; i++) {
         // 将字符转换为十进制并格式化为 3 位
         pos += sprintf(result + pos, "%03d", (unsigned char)input[i]);
         
-        // 如果需要添加空格且不是最后一个字符，就添加空格
-        if (addSpace && i < len - 1) {
-            result[pos++] = ' ';
+        // 如果需要添加分隔符且不是最后一个字符，就添加分隔符
+        if (addSpace > 0 && i < len - 1) {
+            result[pos++] = (addSpace == 1) ? ' ' : ',';
         }
     }
 
@@ -49,13 +67,21 @@ char* ConvertStringToDec(const char* input, int addSpace) {
     return result;
 }
 
-
 // 将字符串转换为二进制格式，并返回转换后的字符串
-// 如果添加Space为1，则二进制字符之间用空格隔开，否则不隔开
+// 如果添加Space为1，则二进制字符之间用空格隔开；如果为2，则使用逗号隔开；否则不隔开
 char* ConvertStringToBin(const char* input, int addSpace) {
     int len = strlen(input);
-    int resultSize = len * 8 + (addSpace ? len - 1 : 0) + 1;  // 计算需要的内存空间，考虑空格
+    if (len == 0) {
+        fprintf(stderr, "Input string is empty in ConvertStringToBin.\n");
+        return NULL;
+    }
+
+    int resultSize = len * 8 + (addSpace > 0 ? len - 1 : 0) + 1;  // 计算需要的内存空间，考虑分隔符
     char* result = (char*)malloc(resultSize * sizeof(char));
+    if (!result) {
+        fprintf(stderr, "Memory allocation failed in ConvertStringToBin.\n");
+        return NULL;
+    }
 
     int pos = 0;
     for (int i = 0; i < len; i++) {
@@ -63,15 +89,18 @@ char* ConvertStringToBin(const char* input, int addSpace) {
             result[pos++] = ((unsigned char)input[i] >> j) & 1 ? '1' : '0';
         }
 
-        // 如果需要添加空格且不是最后一个字符，就添加空格
-        if (addSpace && i < len - 1) {
-            result[pos++] = ' ';
+        // 如果需要添加分隔符且不是最后一个字符，就添加分隔符
+        if (addSpace > 0 && i < len - 1) {
+            result[pos++] = (addSpace == 1) ? ' ' : ',';
         }
     }
 
     result[pos] = '\0';  // 结束字符串
     return result;
 }
+
+
+
 
 // 将字符串转换为带转义的十六进制格式，并返回转换后的字符串
 char* ConvertStringToHexEscape(const char* input) {
