@@ -42,10 +42,23 @@ TestStrToEncode: TestStrToEncode.o StrToEncode.o
 allencode: TestEncodeToStr TestStrToEncode
 
 
+# XorCrypter篇
+XorCrypterWORK_DIR = XorCrypter
+
+XorCrypter.o: 
+	@mkdir -p $(OBJ_DIR)/$(XorCrypterWORK_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDE_DIR)/ -c $(XorCrypterWORK_DIR)/XorCrypter.c -o $(OBJ_DIR)/$(XorCrypterWORK_DIR)/XorCrypter.o
+
+TestXorCrypter.o:
+	@mkdir -p $(OBJ_DIR)/$(XorCrypterWORK_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDE_DIR)/ -c $(UNIT_TEST_DIR)/$(XorCrypterWORK_DIR)/TestXorCrypter.c -o $(OBJ_DIR)/$(XorCrypterWORK_DIR)/TestXorCrypter.o
+
+TestXorCrypter: TestXorCrypter.o XorCrypter.o StrToEncode.o
+	@mkdir -p $(BIN_DIR)/$(XorCrypterWORK_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDE_DIR)/ -o $(BIN_DIR)/$(XorCrypterWORK_DIR)/TestXorCrypter $(OBJ_DIR)/$(XorCrypterWORK_DIR)/TestXorCrypter.o $(OBJ_DIR)/$(XorCrypterWORK_DIR)/XorCrypter.o $(OBJ_DIR)/$(ALLENCODEWORK_DIR)/StrToEncode.o
 
 
-
-
+xorcrypter : TestXorCrypter
 
 
 
