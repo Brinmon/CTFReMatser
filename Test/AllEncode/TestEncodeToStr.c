@@ -1,4 +1,4 @@
-#include "EncodeToStr.h"
+#include "../include/EncodeToStr.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -33,6 +33,16 @@ int main() {
     printf("hexWithoutSpace : %s\n", str2);
     free(str2);
 
+    // 合法的 \x 编码字符串
+    const char* escapedStr = "\\x48\\x65\\x6c\\x6c\\x6f"; // "Hello" 的 \x 编码
+    char* result = ConvertHexEscapeToString(escapedStr);
+    printf("转换结果: %s\n", result); // 期望输出 "Hello"
+    free(result); // 释放动态分配的内存    
+
+    const char* urlStr = "Hello%20World%21"; // "Hello World!"
+    char* result1 = ConvertUrlToString(urlStr);
+    printf("转换结果: %s\n", result1); // 期望输出 "Hello World!"
+    free(result1); // 释放动态分配的内存
 
     return 0;
 }

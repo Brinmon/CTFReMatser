@@ -1,4 +1,4 @@
-#include "StrToEncode.h"
+#include "../include/StrToEncode.h"
 #include <stdlib.h>
 #include <stdio.h>
 

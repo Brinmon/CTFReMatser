@@ -280,5 +280,68 @@ char* ConvertBinToString(const char* bin) {
     return result;
 }
 
+// 将\x编码转化为可见字符字符串，并进行合法性校验
+char* ConvertHexEscapeToString(const char* escaped) {
+    size_t len = strlen(escaped);
+    char* result = (char*)malloc(len + 1);
+    if (!result) {
+        return NULL;
+    }
 
+    size_t j = 0;
+    for (size_t i = 0; i < len; ++i) {
+        if (escaped[i] == '\\' && i + 1 < len) {
+            // 处理 \x 格式
+            if (escaped[i + 1] == 'x' && i + 3 < len) {
+                // 检查后面两个字符是否是合法的十六进制数字
+                if (isxdigit(escaped[i + 2]) && isxdigit(escaped[i + 3])) {
+                    unsigned int val;
+                    if (sscanf(escaped + i + 2, "%2x", &val) == 1) {
+                        result[j++] = (char)val;
+                        i += 3; // 跳过 \x 和两位十六进制字符
+                    } else {
+                        free(result);
+                        return NULL; // 如果转换失败，返回 NULL
+                    }
+                } else {
+                    free(result);
+                    return NULL; // 如果不是有效的十六进制字符，返回 NULL
+                }
+            } else {
+                result[j++] = escaped[i]; // 如果不是 \x 格式，就直接存入
+            }
+        } else {
+            result[j++] = escaped[i]; // 普通字符直接存入
+        }
+    }
+    result[j] = '\0'; // 结束符
+    return result;
+}
 
+// 将 URL 编码转化为可见字符字符串，并进行合法性校验
+char* ConvertUrlToString(const char* url) {
+    size_t len = strlen(url);
+    char* result = (char*)malloc(len + 1); // 最坏情况下，字符数不会增加
+    if (!result) {
+        return NULL;
+    }
+
+    size_t j = 0;
+    for (size_t i = 0; i < len; ++i) {
+        if (url[i] == '%' && i + 2 < len) {
+            // 检查 % 后面是否是合法的十六进制字符
+            if (isxdigit(url[i + 1]) && isxdigit(url[i + 2])) {
+                char hex[3] = { url[i + 1], url[i + 2], '\0' };
+                result[j++] = (char)strtol(hex, NULL, 16); // 将 %xx 转换为字符
+                i += 2; // 跳过百分号和两个十六进制字符
+            } else {
+                free(result);
+                return NULL; // 如果 % 后面不是有效的十六进制字符，返回 NULL
+            }
+        } else {
+            result[j++] = url[i]; // 普通字符直接存入
+        }
+    }
+    result[j] = '\0'; // 结束符
+    return result;
+}
