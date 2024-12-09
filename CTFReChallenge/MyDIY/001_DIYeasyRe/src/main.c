@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
         // 对数据进行 10 次 base64 编码
         currentData = userInputKey4;
         for (int i = 0; i < 10; i++) {
-            encodedData = base64_encode(currentData, strlen(currentData));  // 编码数据
+            encodedData = base64_encode(currentData);  // 编码数据
             currentData = encodedData;  // 更新当前数据为最新的编码结果
         }
         // 检查结果是否匹配任何目标数据
