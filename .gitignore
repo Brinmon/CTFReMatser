@@ -14,3 +14,5 @@ CTFReChallenge/MyDIY/001_DIYeasyRe/src
 *.nam
 *.cfg
 *.o
+qemu-mips-static.i64
+emu.i64s
