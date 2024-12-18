@@ -3,3 +3,14 @@
 build
 CTFReUsePython/Data_HandlerByPython/__pycache__
 ReUseLinux/UseFiniAndInitArry/bin
+CTFReChallenge/MyDIY/001_DIYeasyRe/src
+!CTFReChallenge/MyDIY/001_DIYeasyRe/src/generatexor.c
+!CTFReChallenge/MyDIY/001_DIYeasyRe/src/main.c
+!CTFReChallenge/MyDIY/001_DIYeasyRe/src/makefile
+*.id0
+*.id1
+*.id2
+*.til
+*.nam
+*.cfg
+*.o

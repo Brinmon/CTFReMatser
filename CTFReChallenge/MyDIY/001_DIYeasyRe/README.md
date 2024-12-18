@@ -23,4 +23,6 @@ __attribute__((constructor)) time_t getCurrentTimestamp() {
 }
 ```
 
-### 3. 异或加密的利用
+### 3.异或加密
+
+### 4.base64编码

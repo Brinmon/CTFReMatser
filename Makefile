@@ -77,6 +77,24 @@ TestBase64Encode: TestBase64Encode.o base64.o
 
 baseencode : TestBase64Encode
 
+
+# CaesarCipher
+CAESARCIPHERWORK_DIR = CaesarCipher
+
+CaesarCipher.o:
+	@mkdir -p $(OBJ_DIR)/$(CAESARCIPHERWORK_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDE_DIR)/ -c $(CAESARCIPHERWORK_DIR)/CaesarCipher.c -o $(OBJ_DIR)/$(CAESARCIPHERWORK_DIR)/CaesarCipher.o
+
+TestCaesarCipher.o:
+	@mkdir -p $(OBJ_DIR)/$(CAESARCIPHERWORK_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDE_DIR)/ -c $(UNIT_TEST_DIR)/$(CAESARCIPHERWORK_DIR)/TestCaesarCipher.c -o $(OBJ_DIR)/$(CAESARCIPHERWORK_DIR)/TestCaesarCipher.o
+
+TestCaesarCipher: TestCaesarCipher.o CaesarCipher.o
+	@mkdir -p $(BIN_DIR)/$(CAESARCIPHERWORK_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDE_DIR)/ -o $(BIN_DIR)/$(CAESARCIPHERWORK_DIR)/TestCaesarCipher $(OBJ_DIR)/$(CAESARCIPHERWORK_DIR)/TestCaesarCipher.o $(OBJ_DIR)/$(CAESARCIPHERWORK_DIR)/CaesarCipher.o
+
+caesarcipher : TestCaesarCipher
+
 # 目标：清理编译生成的文件
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
