@@ -15,4 +15,4 @@ CTFReChallenge/MyDIY/001_DIYeasyRe/src
 *.cfg
 *.o
 qemu-mips-static.i64
-emu.i64s
+emu.i64
